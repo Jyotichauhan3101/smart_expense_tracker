@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>History - Expense Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <nav class="bg-blue-600 text-white p-4 flex justify-between">
+    <h1 class="text-xl font-bold">💰 Expense Tracker</h1>
+    <div class="space-x-4">
+      <a href="index.html">Home</a>
+      <a href="add.html">Add</a>
+      <a href="history.html">History</a>
+    </div>
+  </nav>
+
+  <main class="p-6 max-w-4xl mx-auto bg-white mt-8 rounded-xl shadow">
+    <h2 class="text-2xl mb-4">Expense History</h2>
+    <table class="w-full border">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="p-2 border">#</th>
+          <th class="p-2 border">Title</th>
+          <th class="p-2 border">Category</th>
+          <th class="p-2 border">Amount</th>
+          <th class="p-2 border">Date</th>
+        </tr>
+      </thead>
+      <tbody id="expenseList"></tbody>
+    </table>
+  </main>
+
+  <script type="module">
+    import { getExpenses } from './storage.js';
+    const list = document.getElementById('expenseList');
+    const data = getExpenses();
+    data.forEach((e, i) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="p-2 border">${i + 1}</td>
+        <td class="p-2 border">${e.title}</td>
+        <td class="p-2 border">${e.category}</td>
+        <td class="p-2 border">₹${e.amount}</td>
+        <td class="p-2 border">${e.date}</td>
+      `;
+      list.appendChild(row);
+    });
+  </script>
+</body>
+</html>
